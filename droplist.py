@@ -22,3 +22,13 @@ if not os.path.exists(filename):
 
 fh = open(filename, "r")
 lines = fh.readlines()
+func_stats = {}
+
+for x in lines:
+  func = ' '.join(x.split()[3:])
+  drops = int(x.split()[0])  
+  if func in func_stats:
+    func_stats[func] += drops
+  else:
+    func_stats[func] = drops
+
