@@ -20,3 +20,5 @@ if not os.path.exists(filename):
   usage()
   sys.exit(1)
 
+fh = open(filename, "r")
+lines = fh.readlines()
