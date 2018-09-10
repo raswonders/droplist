@@ -4,26 +4,21 @@ import sys
 import os.path
 
 from collections import OrderedDict
+from argparse import ArgumentParser
 
-def usage():
-  print("Usage: droplist {filepath}")
+def file_error(fn):
+  print("Error: file \'{}\' doesn't exist".format(fn)) 
 
-def error1():
-  print("Error: file \'{}\' doesn't exist".format(filename)) 
+parser = ArgumentParser()
+parser.add_argument("filename", help="dropwatch output file")
+args = parser.parse_args()
 
-
-if len(sys.argv) == 1:
-  usage()
+if not os.path.exists(args.filename):
+  file_error(args.filename)
+  parser.print_help()
   sys.exit(1)
 
-filename = sys.argv[1]
-
-if not os.path.exists(filename):
-  error1()
-  usage()
-  sys.exit(1)
-
-fh = open(filename, "r")
+fh = open(args.filename, "r")
 lines = fh.readlines()
 func_stats = {'TOTAL' : 0}
 
