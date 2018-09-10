@@ -15,6 +15,8 @@ def open_file(parser, fn):
 parser = argparse.ArgumentParser()
 parser.add_argument("filename", help="dropwatch output file",
                     type=lambda x: open_file(parser, x))
+parser.add_argument("-d", "--drops", help="amount of drops you're searching for",
+                    type=int)
 args = parser.parse_args()
 
 fh = args.filename
@@ -36,7 +38,5 @@ print("{:^15s}|{:^65}".format("Drops", "Function"))
 print("-" * 80)
 for k, v in func_stats_sorted.items():
   print("{:<15d}{:65s}".format(v, k))
-
-
 
 
