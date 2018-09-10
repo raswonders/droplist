@@ -2,23 +2,22 @@
 
 import sys
 import os.path
+import argparse
 
 from collections import OrderedDict
-from argparse import ArgumentParser
 
-def file_error(fn):
-  print("Error: file \'{}\' doesn't exist".format(fn)) 
+def open_file(parser, fn):
+  try:
+    return open(fn, "r")
+  except FileNotFoundError:
+    parser.error("File \'{}\' doesn't exist".format(fn))
 
-parser = ArgumentParser()
-parser.add_argument("filename", help="dropwatch output file")
+parser = argparse.ArgumentParser()
+parser.add_argument("filename", help="dropwatch output file",
+                    type=lambda x: open_file(parser, x))
 args = parser.parse_args()
 
-if not os.path.exists(args.filename):
-  file_error(args.filename)
-  parser.print_help()
-  sys.exit(1)
-
-fh = open(args.filename, "r")
+fh = args.filename
 lines = fh.readlines()
 func_stats = {'TOTAL' : 0}
 
