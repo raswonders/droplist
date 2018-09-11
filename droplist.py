@@ -14,29 +14,29 @@ def open_file(parser, fn):
     parser.error("File \'{}\' doesn't exist".format(fn))
 
 def parse_drops(parser, p):
-    pattern = re.compile(r'(\d+)(:(\d+)(%)?)?$')    
-    m = pattern.match(p)
-    if m == None:
-      # pattern wasn't matched
-      parser.error("Invalid value for drops")
-    elif m.group(2) == None:
-      # drop count without precision 
-      return m.group(1)
-    elif m.group(4) == '%':
-      # drop count with precision as percentage
-      if int(m.group(3)) > 100:
-        parser.error("Precision cannot be higher than 100%")
-      precision = round(int(m.group(3)) * int(m.group(1))  / 100) 
-      # drop count with precision as whole number 
-    else:
-      precision = int(m.group(3))
+  pattern = re.compile(r'(\d+)(:(\d+)(%)?)?$')    
+  m = pattern.match(p)
+  if m == None:
+    # pattern wasn't matched
+    parser.error("Invalid value for drops")
+  elif m.group(2) == None:
+    # drop count without precision 
+    return m.group(1)
+  elif m.group(4) == '%':
+    # drop count with precision as percentage
+    if int(m.group(3)) > 100:
+      parser.error("Precision cannot be higher than 100%")
+    precision = round(int(m.group(3)) * int(m.group(1))  / 100) 
+    # drop count with precision as whole number 
+  else:
+    precision = int(m.group(3))
 
-    drops = int(m.group(1))
-    rside = drops + precision
-    lside = drops - precision
-    if lside < 0:
-      lside = 0
-    return (lside, rside)
+  drops = int(m.group(1))
+  rside = drops + precision
+  lside = drops - precision
+  if lside < 0:
+    lside = 0
+  return (lside, rside)
 
 
 parser = argparse.ArgumentParser()
