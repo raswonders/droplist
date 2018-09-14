@@ -63,10 +63,18 @@ print("-" * 80)
 for k, v in func_stats_sorted.items():
   print("{:<15d}{:65s}".format(v, k))
 
-print(args.drops)
-"""
 if args.drops != None:
-  drops = args.drops[0]
-  precision = args.drops[1]
-  func_precise = [ k for k,v in func_stats_sorted.items() if v == drops ]
-"""
+  drops = int(args.drops[0])
+  precision = int(args.drops[1])
+  func_match_drops = [ k for k,v in func_stats_sorted.items() if v == drops ]
+  if func_match_drops: 
+    list_func(func_match_drops)
+  elif precision == 0:
+    print("Interested in closest match? [Y]/N")
+    #TODO implement search within inflating drop range  
+  else:
+    rside = drops + precision
+    lside = drops - precision 
+    if lside < 0:
+      lside = 0
+    #TODO implement search within drop range lside - rside 
