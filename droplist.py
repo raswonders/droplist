@@ -20,15 +20,15 @@ def open_file(parser, fn):
   except FileNotFoundError:
     parser.error("File \'{}\' doesn't exist".format(fn))
 
-def parse_drops(parser, p, p_def):
+def parse_drops(parser, drops):
   pattern = re.compile(r'(\d+)(:(\d+)(%)?)?$')    
-  m = pattern.match(p)
+  m = pattern.match(drops)
   if m == None:
     # pattern wasn't matched
     parser.error("Invalid value for drops")
   elif m.group(2) == None:
     # drop count without precision 
-    precision = int(round(float(p_def) * float(m.group(1)) / 100))
+    precision = 0
   elif m.group(4) == '%':
     # drop count with precision as percentage
     if int(m.group(3)) > 100:
@@ -41,14 +41,11 @@ def parse_drops(parser, p, p_def):
   drops = int(m.group(1))
   return (drops, precision)
 
-# Default precision in percentage  
-p_def = 0 
-
 parser = argparse.ArgumentParser()
 parser.add_argument("filename", help="dropwatch output file",
                     type=lambda x: open_file(parser, x))
 parser.add_argument("-d", "--drops", help="[d[:p]] d number of drops you're searching for, p is allowed deviation from drop count. Deviation can be expressed either in percentage or as a whole number",
-                    type=lambda x: parse_drops(parser, x, p_def))
+                    type=lambda x: parse_drops(parser, x))
 args = parser.parse_args()
 
 # Parse dropwatch output file
