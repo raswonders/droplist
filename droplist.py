@@ -42,7 +42,7 @@ def parse_drops(parser, p, p_def):
   return (drops, precision)
 
 # Default precision in percentage  
-p_def = 2
+p_def = 0 
 
 parser = argparse.ArgumentParser()
 parser.add_argument("filename", help="dropwatch output file",
