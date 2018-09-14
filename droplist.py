@@ -7,6 +7,13 @@ import re
 
 from collections import OrderedDict
 
+def list_func(fn):
+  print("{:^15s}|{:^65}".format("Drops", "Function"))
+  print("-" * 80)
+  for k in fn:
+    v = func_stats_sorted[k]
+    print("{:<15d}{:65s}".format(v, k))
+
 def open_file(parser, fn):
   try:
     return open(fn, "r")
@@ -36,6 +43,7 @@ def parse_drops(parser, p, p_def):
 
 # Default precision in percentage  
 p_def = 2
+
 parser = argparse.ArgumentParser()
 parser.add_argument("filename", help="dropwatch output file",
                     type=lambda x: open_file(parser, x))
@@ -43,10 +51,10 @@ parser.add_argument("-d", "--drops", help="[d[:p]] d number of drops you're sear
                     type=lambda x: parse_drops(parser, x, p_def))
 args = parser.parse_args()
 
+# Parse dropwatch output file
 fh = args.filename
 lines = fh.readlines()
 func_stats = {'TOTAL' : 0}
-
 for x in lines:
   func = ' '.join(x.split()[3:])
   drops = int(x.split()[0])  
@@ -55,13 +63,7 @@ for x in lines:
     func_stats[func] += drops
   else:
     func_stats[func] = drops
-
 func_stats_sorted = OrderedDict(sorted(func_stats.items(), key=lambda t: t[1], reverse=True))
-
-print("{:^15s}|{:^65}".format("Drops", "Function"))
-print("-" * 80)
-for k, v in func_stats_sorted.items():
-  print("{:<15d}{:65s}".format(v, k))
 
 if args.drops != None:
   drops = int(args.drops[0])
