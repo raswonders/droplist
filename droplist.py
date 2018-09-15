@@ -40,6 +40,21 @@ def parse_drops(parser, drops):
   drops = int(m.group(1))
   return (drops, precision)
 
+def find_func(drops, precision, sorted_dict):
+  rside = drops + precision
+  lside = drops - precision 
+  if lside < 0:
+    lside = 0
+  for k,v in sorted_dict.items():
+    if v <= rside:
+      d[k] = v
+     
+    
+  
+
+
+
+
 # Parse arguments
 parser = argparse.ArgumentParser()
 parser.add_argument("filename", help="dropwatch output file",
@@ -63,9 +78,6 @@ for x in lines:
 func_stats_sorted = OrderedDict(sorted(func_stats.items(), key=lambda t: t[1], reverse=True))
 
 if args.drops != None:
-  rside = drops + precision
-  lside = drops - precision 
-  if lside < 0:
-    lside = 0
+  find_func(drops, precision, func_stats_sorted)
 
 
