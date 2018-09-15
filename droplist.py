@@ -4,15 +4,37 @@ import sys
 import os.path
 import argparse
 import re
+import itertools
 
 from collections import OrderedDict
 
-def list_func(fn):
+def list_func(f_list, f_dict):
   print("{:^15s}|{:^65}".format("Drops", "Function"))
   print("-" * 80)
-  for k in fn:
-    v = func_stats_sorted[k]
-    print("{:<15d}{:65s}".format(v, k))
+  if f_list:
+    for k in f_list:
+      v = f_dict[k]
+      print("{:<15d}{:65s}".format(v, k))
+  else:
+    for k,v in f_dict.items():
+      print("{:<15d}{:65s}".format(v, k))
+
+def list_func_comb(iterator, f_dict, total):
+  k = len(iterator)
+  if k == 1: 
+    print("{:^15s}|{:^65}".format("Drops", "Function"))
+    print("-" * 80)
+    print("{:<15d}{:65s}".format(f_dict[iterator[0]], iterator[0]))
+  elif k > 1:
+    title = str(k) + "-combination of functions"
+    print("{:^15s}|{:^65}".format("Drops", title))
+    print("-" * 80)
+    for func in iterator:
+      print("{:<15d}{:65s}".format(f_dict[func], func))
+    print("{:<15d}{:65s}".format(total, "TOTAL"))
+
+    
+
 
 def open_file(parser, fn):
   try:
@@ -40,15 +62,29 @@ def parse_drops(parser, drops):
   drops = int(m.group(1))
   return (drops, precision)
 
+def compute_drops(iterator, f_dict):
+  drops = 0
+  for i in iterator:
+    drops += f_dict[i]
+  return drops
+
 def find_func(drops, precision, sorted_dict):
   rside = drops + precision
   lside = drops - precision 
   if lside < 0:
     lside = 0
-  for k,v in sorted_dict.items():
-    if v <= rside:
-      d[k] = v
-     
+  d = OrderedDict()
+  for key,val in sorted_dict.items():
+    if val <= rside:
+      d[key] = val
+  #for k in range(1, len(d) + 1):
+  for k in range(1, 3):
+    l_combinations = list(itertools.combinations(d.keys(), k)) 
+    d_combinations = {key: compute_drops(key, d) for key in l_combinations}    
+    for k,v in d_combinations.items():
+      if lside <= v <= rside:
+        list_func_comb(k, d, v)
+  #list_func(None, d)   
     
   
 
@@ -78,6 +114,8 @@ for x in lines:
 func_stats_sorted = OrderedDict(sorted(func_stats.items(), key=lambda t: t[1], reverse=True))
 
 if args.drops != None:
+  drops = args.drops[0]
+  precision = args.drops[1]
   find_func(drops, precision, func_stats_sorted)
 
 
