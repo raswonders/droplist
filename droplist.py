@@ -37,10 +37,10 @@ def parse_drops(parser, drops):
   else:
     # drop count with precision as whole number 
     precision = int(m.group(3))
-
   drops = int(m.group(1))
   return (drops, precision)
 
+# Parse arguments
 parser = argparse.ArgumentParser()
 parser.add_argument("filename", help="dropwatch output file",
                     type=lambda x: open_file(parser, x))
@@ -48,7 +48,7 @@ parser.add_argument("-d", "--drops", help="[d[:p]] d number of drops you're sear
                     type=lambda x: parse_drops(parser, x))
 args = parser.parse_args()
 
-# Parse dropwatch output file
+# Process dropwatch output file
 fh = args.filename
 lines = fh.readlines()
 func_stats = {'TOTAL' : 0}
@@ -63,17 +63,9 @@ for x in lines:
 func_stats_sorted = OrderedDict(sorted(func_stats.items(), key=lambda t: t[1], reverse=True))
 
 if args.drops != None:
-  drops = int(args.drops[0])
-  precision = int(args.drops[1])
-  func_match_drops = [ k for k,v in func_stats_sorted.items() if v == drops ]
-  if func_match_drops: 
-    list_func(func_match_drops)
-  elif precision == 0:
-    print("Interested in closest match? [Y]/N")
-    #TODO implement search within inflating drop range  
-  else:
-    rside = drops + precision
-    lside = drops - precision 
-    if lside < 0:
-      lside = 0
-    #TODO implement search within drop range lside - rside 
+  rside = drops + precision
+  lside = drops - precision 
+  if lside < 0:
+    lside = 0
+
+
