@@ -78,7 +78,7 @@ def parse_dropwatch(fh):
       func_stats[func] = drops
   return OrderedDict(sorted(func_stats.items(), key=lambda t: t[1], reverse=True))
 
-def find_func(l, r, sorted_dict):
+def find_func(l, r, drops, sorted_dict):
   step_percent = 5
   ld = [] 
   i_k_l_combinations = [] 
@@ -156,6 +156,6 @@ if args.drops != None:
   lside = drops - precision 
   if lside < 0:
     lside = 0
-  find_func(lside, rside, func_stats_sorted)
+  find_func(lside, rside, drops, func_stats_sorted)
 
 
