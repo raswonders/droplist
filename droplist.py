@@ -83,7 +83,7 @@ def find_func(l, r, drops, sorted_dict):
   ld = [] 
   i_k_l_combinations = [] 
   # How fast interval grows
-  step = (float(l) * step_percent) / 100
+  step = (float(drops) * step_percent) / 100
   within_range = False
   jump = 0
   autosearch = False
