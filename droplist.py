@@ -65,6 +65,19 @@ def compute_drops(iterator, f_dict):
     drops += f_dict[i]
   return drops
 
+def parse_dropwatch(fh):
+  lines = fh.readlines()
+  func_stats = {'TOTAL' : 0}
+  for x in lines:
+    func = ' '.join(x.split()[3:])
+    drops = int(x.split()[0])  
+    func_stats['TOTAL'] += drops
+    if func in func_stats:
+      func_stats[func] += drops
+    else:
+      func_stats[func] = drops
+  return OrderedDict(sorted(func_stats.items(), key=lambda t: t[1], reverse=True))
+
 def find_func(l, r, sorted_dict):
   step_percent = 5
   ld = [] 
@@ -133,21 +146,9 @@ parser.add_argument("filename", help="dropwatch output file",
 parser.add_argument("-d", "--drops", help="[d[:p]] d number of drops you're searching for, p is allowed deviation from drop count. Deviation can be expressed either in percentage or as a whole number",
                     type=lambda x: parse_drops(parser, x))
 args = parser.parse_args()
+func_stats_sorted = parse_dropwatch(args.filename) 
 
-# Process dropwatch output file
-fh = args.filename
-lines = fh.readlines()
-func_stats = {'TOTAL' : 0}
-for x in lines:
-  func = ' '.join(x.split()[3:])
-  drops = int(x.split()[0])  
-  func_stats['TOTAL'] += drops
-  if func in func_stats:
-    func_stats[func] += drops
-  else:
-    func_stats[func] = drops
-func_stats_sorted = OrderedDict(sorted(func_stats.items(), key=lambda t: t[1], reverse=True))
-
+# Initiate the drop range <lside, rside> we are interested in
 if args.drops != None:
   drops = args.drops[0]
   precision = args.drops[1]
