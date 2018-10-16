@@ -1,0 +1,58 @@
+1539679195
+Initalizing kallsyms db
+dropwatch> start
+Enabling monitoring...
+Kernel monitoring activated.
+Issue Ctrl-C to stop monitoring
+1 drops at skb_release_data+9a (0xffffffff819ac3ca)
+3 drops at skb_release_data+9a (0xffffffff819ac3ca)
+2 drops at skb_release_data+9a (0xffffffff819ac3ca)
+5 drops at skb_release_data+9a (0xffffffff819ac3ca)
+1 drops at __udp4_lib_rcv+88e (0xffffffff81a4444e)
+4 drops at __udp4_lib_rcv+88e (0xffffffff81a4444e)
+1 drops at __udp4_lib_rcv+88e (0xffffffff81a4444e)
+1 drops at skb_release_data+9a (0xffffffff819ac3ca)
+1 drops at skb_release_data+9a (0xffffffff819ac3ca)
+1 drops at __udp4_lib_rcv+88e (0xffffffff81a4444e)
+1 drops at skb_release_data+9a (0xffffffff819ac3ca)
+1 drops at skb_release_data+9a (0xffffffff819ac3ca)
+4 drops at __udp4_lib_rcv+88e (0xffffffff81a4444e)
+2 drops at __udp4_lib_rcv+88e (0xffffffff81a4444e)
+7 drops at skb_release_data+9a (0xffffffff819ac3ca)
+1 drops at skb_release_data+9a (0xffffffff819ac3ca)
+4 drops at skb_release_data+9a (0xffffffff819ac3ca)
+3 drops at skb_release_data+9a (0xffffffff819ac3ca)
+4 drops at __udp4_lib_rcv+88e (0xffffffff81a4444e)
+1 drops at __udp4_lib_rcv+88e (0xffffffff81a4444e)
+1 drops at __udp4_lib_rcv+88e (0xffffffff81a4444e)
+1 drops at skb_release_data+9a (0xffffffff819ac3ca)
+1 drops at __udp4_lib_rcv+88e (0xffffffff81a4444e)
+2 drops at skb_release_data+9a (0xffffffff819ac3ca)
+1 drops at skb_release_data+9a (0xffffffff819ac3ca)
+1 drops at skb_release_data+9a (0xffffffff819ac3ca)
+1 drops at skb_release_data+9a (0xffffffff819ac3ca)
+1 drops at skb_release_data+9a (0xffffffff819ac3ca)
+1 drops at sk_stream_kill_queues+43 (0xffffffff819b2233)
+1 drops at __udp4_lib_rcv+88e (0xffffffff81a4444e)
+1 drops at __udp4_lib_rcv+88e (0xffffffff81a4444e)
+1 drops at __udp4_lib_rcv+88e (0xffffffff81a4444e)
+1 drops at __udp4_lib_rcv+88e (0xffffffff81a4444e)
+1 drops at __udp4_lib_rcv+88e (0xffffffff81a4444e)
+1 drops at __udp4_lib_rcv+88e (0xffffffff81a4444e)
+1 drops at ip_local_deliver_finish+ff (0xffffffff81a13d0f)
+2 drops at skb_release_data+9a (0xffffffff819ac3ca)
+1 drops at skb_release_data+9a (0xffffffff819ac3ca)
+1 drops at skb_release_data+9a (0xffffffff819ac3ca)
+2 drops at __udp4_lib_rcv+88e (0xffffffff81a4444e)
+1 drops at __udp4_lib_rcv+88e (0xffffffff81a4444e)
+1 drops at __udp4_lib_rcv+88e (0xffffffff81a4444e)
+1 drops at __udp4_lib_rcv+88e (0xffffffff81a4444e)
+1 drops at __udp4_lib_rcv+88e (0xffffffff81a4444e)
+1 drops at __udp4_lib_rcv+88e (0xffffffff81a4444e)
+1 drops at skb_release_data+9a (0xffffffff819ac3ca)
+1 drops at skb_release_data+9a (0xffffffff819ac3ca)
+2 drops at skb_release_data+9a (0xffffffff819ac3ca)
+Got a stop message
+dropwatch> Terminating dropwatch...
+Shutting down ...
+1539679277
