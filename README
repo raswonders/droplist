@@ -2,7 +2,7 @@ Droplist is parser for dropwatch output files.
 
 Motivation: main goal here is to produce overview of drops captured during 
 dropwatch process. Dropwatch output is very limited and lack of any overview
-often makes problem analysis often more complicated than it needs to be. 
+makes problem analysis often more complicated than it needs to be. 
 
 HowTo
 ~~~~~
