@@ -60,7 +60,7 @@ def drop_stats(lines):
   match groups of interest from pattern
   group(1) drops e.g. "233"
   group(3) function name with byte offset e.g. "skb_release_data+9a"
-  group(4) byte offset for instance e.g. "+9e"
+  group(4) byte offset e.g. "+9e"
   group(5) memory address of a function e.g. "0xffffffff819ac3ca"
   """
   pattern = re.compile('(\d+)( drops at )(\w+(\+\w+)*) \((0x\w+)\)') 
@@ -78,6 +78,10 @@ def drop_stats(lines):
 
 def parse_dropwatch(fh):
   lines = fh.readlines()
+  fh.close()
+  if not lines:
+    print("Error: File is empty!")
+    sys.exit()
   try:
     time_sign = time_signature(lines)
   except TimeSignature:
