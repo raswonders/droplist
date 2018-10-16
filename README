@@ -1,0 +1,42 @@
+Droplist is parser for dropwatch output files. 
+
+Motivation: main goal here is to produce overview of drops captured during 
+dropwatch process. Dropwatch output is very limited and lack of any overview
+often makes problem analysis often more complicated than it needs to be. 
+
+HowTo
+~~~~~
+1. Capture dropwatch data on desired system by running following shell command sequence.
+
+$ date +%s > dropwatch.txt; echo start | dropwatch -l kas >> dropwatch.txt; date +%s >> dropwatch.txt
+
+Once sequence is executed it will seem to be stuck but that is alright. What happens is that
+dropwatch is in foreground monitoring for drops and writing output to the dropwatch.txt file. 
+Once sufficient time pass stop execution of dropwatch by CTRL+C. 
+
+2. Run parser against output file from previous sequence 
+
+$ ./droplist.py dropwatch.txt 
+     Drops     |                            Function                             
+--------------------------------------------------------------------------------
+640267         ALL                                                              
+320820         unix_stream_connect+2da                                          
+113088         tcp_v4_rcv+87                                                    
+109595         __udp4_lib_mcast_deliver+2ad                                     
+38148          skb_release_data+10e                                             
+31796          unix_dgram_sendmsg+4f8                                           
+13307          ip_rcv_finish+1d4                                                
+4353           tcp_rcv_state_process+1b6                                        
+2496           netlink_broadcast_filtered+2b9                                   
+1875           sk_stream_kill_queues+50                                         
+1621           icmp_rcv+135                                                     
+1043           neigh_probe+5a                                                   
+845            __netif_receive_skb_core+3da                                     
+607            arp_error_report+39                                              
+313            ip_forward+1d0                                                   
+156            netlink_unicast+1aa                                              
+88             __udp4_lib_rcv+765                                               
+57             tcp_v4_do_rcv+80                                                 
+56             unix_release_sock+196                                            
+2              udp_destruct_sock+5c                                             
+1              skb_queue_purge+18          
